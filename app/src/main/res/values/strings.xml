@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ONE APP</string>
+    <string name="yingshi">影视</string>
+    <string name="yinyue">音乐</string>
+    <string name="yuedu">阅读</string>
+    <string name="shouye">首页</string>
+    <string name="_yuedu_">-阅读-</string>
+    <string name="_yinyue_">-音乐-</string>
+    <string name="_yingshi_">-影视-</string>
+</resources>
