@@ -21,8 +21,8 @@ import java.util.List;
 
 public class ThreeAdapter extends RecyclerView.Adapter<ThreeAdapter.ViewHolder>{
     private List<RecyclerViewDataThree> mDataList;
-    private OnRecycleViewListener onRecycleViewListener;
-//    View oneView;
+//    private OnRecycleViewListener onRecycleViewListener;
+
     Context mContext;
     /*
   将数据源传进来
@@ -42,7 +42,6 @@ public class ThreeAdapter extends RecyclerView.Adapter<ThreeAdapter.ViewHolder>{
             itemView子项的最外层布局
              */
             super(itemView);
-//            oneView = itemView;
             musicWriter = (TextView) itemView.findViewById(R.id.recycler_three_musicWriter);
             biaoti = (TextView) itemView.findViewById(R.id.recycler_three_biaoti);
             title = (TextView) itemView.findViewById(R.id.recycler_three_title);
@@ -74,15 +73,15 @@ public class ThreeAdapter extends RecyclerView.Adapter<ThreeAdapter.ViewHolder>{
         holder.writer.setText(data.getWriter());
         holder.musicWriter.setText(data.getMusicWriter());
         Glide.with(mContext).load(data.getImage()).into(holder.image);
-        if(onRecycleViewListener != null){//如果设置了回调，则设置监听事件
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int pos = holder.getLayoutPosition();//和position值一样
-                    onRecycleViewListener.onItemClick(holder.itemView,pos);
-                }
-            });
-        }
+//        if(onRecycleViewListener != null){//如果设置了回调，则设置监听事件
+//            holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int pos = holder.getLayoutPosition();//和position值一样
+//                    onRecycleViewListener.onItemClick(holder.itemView,pos);
+//                }
+//            });
+//        }
     }
 
     /**
@@ -92,11 +91,11 @@ public class ThreeAdapter extends RecyclerView.Adapter<ThreeAdapter.ViewHolder>{
     public int getItemCount() {
         return mDataList.size();
     }
-    public interface OnRecycleViewListener{
-        void onItemClick(View view, int position);
-    }
-    public void setOnRecycleViewListener(OnRecycleViewListener mOnItemClickListener){
-        this.onRecycleViewListener = mOnItemClickListener;
-    }
+//    public interface OnRecycleViewListener{
+//        void onItemClick(View view, int position);
+//    }
+//    public void setOnRecycleViewListener(OnRecycleViewListener mOnItemClickListener){
+//        this.onRecycleViewListener = mOnItemClickListener;
+//    }
 
 }

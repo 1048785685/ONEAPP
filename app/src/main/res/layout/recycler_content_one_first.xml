@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shouye_image"
+            android:src="@mipmap/ic_launcher"
+            />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/shouye_huihuazuozhe"
+        android:text="绘画"
+        android:textSize="15sp"
+        android:gravity="center"
+        />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textSize="30sp"
+            android:id="@+id/shouye_suibi"
+            android:text="dsajkfjdretretrtretretretrlsfdsj"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shouye_suibizuozhe"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:text="随笔作者"
+            />
+
+</LinearLayout>

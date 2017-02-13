@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+   <group android:checkableBehavior="single">
+
+    <item
+        android:id= "@+id/yejianmoshi"
+        android:icon="@mipmap/ic_launcher"
+        android:title="夜间模式"/>
+    <item
+        android:id= "@+id/us"
+        android:icon="@mipmap/ic_launcher"
+        android:title="关于我们"/>
+    </group>
+
+</menu>
