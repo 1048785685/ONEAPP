@@ -83,10 +83,10 @@ public class FragmentOne extends Fragment implements SwipeRefreshLayout.OnRefres
             public void run() {
                 for (int i=0 ; i < 3; i++){
                     RecyclerViewDataOne recyclerViewDataOne = new RecyclerViewDataOne();
-                    recyclerViewDataOne.setBiaoti("标题" + i);
-                    recyclerViewDataOne.setContent("内容" + i);
-                    recyclerViewDataOne.setTitle("Title" + i);
-                    recyclerViewDataOne.setWriter("writer" + i);
+                    recyclerViewDataOne.setBiaoti("One标题" + i);
+                    recyclerViewDataOne.setContent("One内容" + i);
+                    recyclerViewDataOne.setTitle("OneTitle" + i);
+                    recyclerViewDataOne.setWriter("Onewriter" + i);
                     recyclerViewDataOne.setImage("http://cn.bing.com/az/hprichbg/rb/PalaudelaMusica_ZH-CN12110358984_1920x1080.jpg");
                     dataOneList.add(1,recyclerViewDataOne);
                 }

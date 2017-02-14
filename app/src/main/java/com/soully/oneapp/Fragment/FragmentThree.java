@@ -37,11 +37,11 @@ public class FragmentThree extends Fragment implements SwipeRefreshLayout.OnRefr
 
         for (int i=0;i<3;i++){
             RecyclerViewDataThree recyclerViewDataThree = new RecyclerViewDataThree();
-            recyclerViewDataThree.setBiaoti("标题" + i);
-            recyclerViewDataThree.setContent("内容" + i);
-            recyclerViewDataThree.setTitle("Title" + i);
-            recyclerViewDataThree.setWriter("writer" + i);
-            recyclerViewDataThree.setMusicWriter("musicWriter" + i);
+            recyclerViewDataThree.setBiaoti("Three标题" + i);
+            recyclerViewDataThree.setContent("Three内容" + i);
+            recyclerViewDataThree.setTitle("ThreeTitle" + i);
+            recyclerViewDataThree.setWriter("Threewriter" + i);
+            recyclerViewDataThree.setMusicWriter("ThreemusicWriter" + i);
             recyclerViewDataThree.setImage("http://cn.bing.com/az/hprichbg/rb/PalaudelaMusica_ZH-CN12110358984_1920x1080.jpg");
             dataThreeList.add(recyclerViewDataThree);
         }

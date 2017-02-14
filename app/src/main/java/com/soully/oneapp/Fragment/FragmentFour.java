@@ -43,13 +43,14 @@ public class FragmentFour extends Fragment implements SwipeRefreshLayout.OnRefre
 
         for (int i=0;i<3;i++){
             RecyclerViewDataFour recyclerViewDataFour = new RecyclerViewDataFour();
-            recyclerViewDataFour.setBiaoti("标题" + i);
-            recyclerViewDataFour.setContent("内容" + i);
-            recyclerViewDataFour.setTitle("Title" + i);
-            recyclerViewDataFour.setWriter("writer" + i);
+            recyclerViewDataFour.setBiaoti("Four标题" + i);
+            recyclerViewDataFour.setContent("Four内容" + i);
+            recyclerViewDataFour.setTitle("FourTitle" + i);
+            recyclerViewDataFour.setWriter("Fourwriter" + i);
             recyclerViewDataFour.setImage("http://cn.bing.com/az/hprichbg/rb/PalaudelaMusica_ZH-CN12110358984_1920x1080.jpg");
             dataFourList.add(recyclerViewDataFour);
         }
+
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.four_swipe);
         swipeRefreshLayout.setOnRefreshListener(this);//注册点击监听事件
         swipeRefreshLayout.setColorSchemeColors(R.color.colorAccent, R.color.colorPrimary,

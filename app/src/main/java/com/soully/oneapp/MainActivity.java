@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,18 +24,22 @@ import com.soully.oneapp.Fragment.FragmentFour;
 import com.soully.oneapp.Fragment.FragmentOne;
 import com.soully.oneapp.Fragment.FragmentThree;
 import com.soully.oneapp.Fragment.FragmentTwo;
+import com.soully.oneapp.Fragment.FragmentWait;
 
 import java.io.BufferedReader;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
-    private Fragment currentFragment = new Fragment();
+     Fragment currentFragment = new Fragment();
     private NavigationView navigationView;
-    private FragmentManager fragmentManager;
-    private Fragment FragmentOne =new FragmentOne();
-    private Fragment FragmentTwo =new FragmentTwo();
-    private Fragment FragmentThree =new FragmentThree();
-    private Fragment FragmentFour =new FragmentFour();
+   FragmentOne FragmentOne =new FragmentOne();
+FragmentTwo FragmentTwo =new FragmentTwo();
+ FragmentThree FragmentThree =new FragmentThree();
+FragmentFour FragmentFour =new FragmentFour();
+    FragmentManager fragmentManager;
+//    private Fragment FragmentWait = new FragmentWait();
 //    Fragment from=manager.findFragmentById(R.id.content_frame);
     private DrawerLayout drawerLayout;
 
@@ -44,7 +49,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
-//        currentFragment = fragmentManager.findFragmentById(R.id.fragment);
+        FragmentTransaction transaction= fragmentManager.beginTransaction();
+        currentFragment = FragmentOne;
+        transaction.add(R.id.fragment, FragmentOne).show(FragmentOne).commit();
+        Log.d("current",currentFragment+"");
+//        Log.d("current",FragmentOne+"");
+//        Log.d("current",FragmentTwo+"");
+//        Log.d("current",FragmentThree+"");
+//        Log.d("current",FragmentFour+"");
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -88,19 +101,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tab_0:
-
+//                showFragment(FragmentWait);
                 showFragment(FragmentOne);
                 break;
             case R.id.tab_1:
-
                 showFragment(FragmentTwo);
                 break;
             case R.id.tab_2:
-
                 showFragment(FragmentThree);
                 break;
             case R.id.tab_3:
-
                 showFragment(FragmentFour);
                 break;
         }
@@ -128,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 展示Fragment
      */
     private void showFragment(Fragment fragment) {
+        Log.d("current",currentFragment+"");
         if (currentFragment!=fragment) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.hide(currentFragment);
@@ -138,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 transaction.show(fragment).commit();
             }
         }
+        Log.d("current",currentFragment+"");
     }
 
 

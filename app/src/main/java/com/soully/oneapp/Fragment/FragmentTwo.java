@@ -48,10 +48,10 @@ public class FragmentTwo extends Fragment implements SwipeRefreshLayout.OnRefres
         pic = aCache.getAsString("image");
         for (int i=0;i < 3;i++){
             RecyclerViewDataTwo recyclerViewDataTwo = new RecyclerViewDataTwo();
-            recyclerViewDataTwo.setBiaoti("标题" + i);
-            recyclerViewDataTwo.setContent("内容" + i);
-            recyclerViewDataTwo.setTitle("Title" + i);
-            recyclerViewDataTwo.setWriter("writer" + i);
+            recyclerViewDataTwo.setBiaoti("Two标题" + i);
+            recyclerViewDataTwo.setContent("Two内容" + i);
+            recyclerViewDataTwo.setTitle("TwoTitle" + i);
+            recyclerViewDataTwo.setWriter("Twowriter" + i);
             recyclerViewDataTwo.setImage(pic);
             dataTwoList.add(recyclerViewDataTwo);
         }
