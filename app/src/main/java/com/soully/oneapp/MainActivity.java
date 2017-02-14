@@ -30,13 +30,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toolbar toolbar;
     private Fragment currentFragment = new Fragment();
     private NavigationView navigationView;
+    private FragmentManager fragmentManager;
+    private Fragment FragmentOne =new FragmentOne();
+    private Fragment FragmentTwo =new FragmentTwo();
+    private Fragment FragmentThree =new FragmentThree();
+    private Fragment FragmentFour =new FragmentFour();
+//    Fragment from=manager.findFragmentById(R.id.content_frame);
     private DrawerLayout drawerLayout;
-    private FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fragmentManager = getSupportFragmentManager();
+//        currentFragment = fragmentManager.findFragmentById(R.id.fragment);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -48,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textView_1.setOnClickListener(this);
         textView_2.setOnClickListener(this);
         textView_3.setOnClickListener(this);
+
+        ACache aCache = ACache.get(this);
+        aCache.put("image","http://cn.bing.com/az/hprichbg/rb/PalaudelaMusica_ZH-CN12110358984_1920x1080.jpg");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,27 +88,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tab_0:
-                replaceFragment(new FragmentOne());
-//                showFragment(new FragmentOne());
+
+                showFragment(FragmentOne);
                 break;
             case R.id.tab_1:
-                replaceFragment(new FragmentTwo());
+
+                showFragment(FragmentTwo);
                 break;
             case R.id.tab_2:
-                replaceFragment(new FragmentThree());
+
+                showFragment(FragmentThree);
                 break;
             case R.id.tab_3:
-                replaceFragment(new FragmentFour());
+
+                showFragment(FragmentFour);
                 break;
         }
     }
 
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment, fragment);
-        transaction.commit();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -116,24 +124,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return super.onOptionsItemSelected(item);
         }
     }
-
     /**
      * 展示Fragment
      */
-//    private void showFragment(Fragment fragment) {
-//        if (fragment != currentFragment) {
-//            if (!fragment.isAdded()) {
-//                getFragmentManager().beginTransaction().hide(currentFragment)
-//                        .add(R.id.fragment, fragment).commit();
-//            } else {
-//                getFragmentManager().beginTransaction().hide(currentFragment)
-//                        .show(fragment).commit();
-//            }
-//            currentFragment = fragment;
-//        }
-//    }
+    private void showFragment(Fragment fragment) {
+        if (currentFragment!=fragment) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.hide(currentFragment);
+            currentFragment = fragment;
+            if (!fragment.isAdded()) {
+                transaction.add(R.id.fragment, fragment).show(fragment).commit();
+            } else {
+                transaction.show(fragment).commit();
+            }
+        }
+    }
 
-    
+
+
 //    @Override
 //    public boolean onKeyDown(int keyCode, KeyEvent event)
 //    {

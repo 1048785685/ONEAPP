@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class FragmentThree extends Fragment implements SwipeRefreshLayout.OnRefr
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_three);
         recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL_LIST));//加分割线
+//        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         linearLayoutManager = new LinearLayoutManager(view.getContext());//指定布局样式
         recyclerView.setLayoutManager(linearLayoutManager);//将布局加入到recyclerView中
         threeAdapter = new ThreeAdapter(dataThreeList);

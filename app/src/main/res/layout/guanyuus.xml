@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:text="小组成员：刘洋，罗真，周科"
+        android:text="小组成员：刘洋，罗真"
         android:textSize="25sp"
         />
 

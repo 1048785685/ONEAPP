@@ -21,7 +21,6 @@ import java.util.List;
 public class FourAdapter extends RecyclerView.Adapter<FourAdapter.ViewHolder>{
     private List<RecyclerViewDataFour> mDataList;
     private OnRecycleViewListener onRecycleViewListener;
-    View oneView;
     Context mContext;
     /*
   将数据源传进来
@@ -40,7 +39,6 @@ public class FourAdapter extends RecyclerView.Adapter<FourAdapter.ViewHolder>{
             itemView子项的最外层布局
              */
             super(itemView);
-            oneView = itemView;
             biaoti = (TextView) itemView.findViewById(R.id.recycler_four_biaoti);
             title = (TextView) itemView.findViewById(R.id.recycler_four_title);
             writer = (TextView) itemView.findViewById(R.id.recycler_four_writer);
