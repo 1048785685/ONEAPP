@@ -39,11 +39,14 @@ public class FragmentTwo extends Fragment implements SwipeRefreshLayout.OnRefres
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
+
     String pic;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmenttwo,container,false);
+
+
        ACache aCache = ACache.get(this.getContext());
         pic = aCache.getAsString("image");
         for (int i=0;i < 3;i++){

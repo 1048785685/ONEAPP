@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.soully.oneapp.R;
 import com.soully.oneapp.RecyclerViewData.RecyclerViewDataOne;
 import com.soully.oneapp.RecyclerViewData.RecyclerViewDataOneFirst;
-
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ import java.util.List;
  * Created by Soully on 2017/1/19.
  */
 
-public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ViewPagerThreeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<RecyclerViewDataOne> mDataOneList;
     private List<RecyclerViewDataOneFirst> mDataOneFirstList;
-    private OneAdapter.OnRecycleViewListener onRecycleViewListener;
+    private OnRecycleViewListener onRecycleViewListener;
     public static final int first_item = 0;//第一个item
     public static final int other_item = 1;//其余item
     public static final int last_item = 2;//最后一个item
@@ -30,7 +30,7 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     /*
   将数据源传进来
    */
-    public OneAdapter(List<RecyclerViewDataOne> dataOneList,List<RecyclerViewDataOneFirst> dataOneFirstList){
+    public ViewPagerThreeAdapter(List<RecyclerViewDataOne> dataOneList, List<RecyclerViewDataOneFirst> dataOneFirstList){
         this.mDataOneList = dataOneList;
         this.mDataOneFirstList = dataOneFirstList;
     }
@@ -139,12 +139,10 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             return other_item;
         }
     }
-
-
     public interface OnRecycleViewListener{
         void onItemClick(View view, int position);
     }
-    public void setOnRecycleViewListener(OneAdapter.OnRecycleViewListener mOnItemClickListener){
+    public void setOnRecycleViewListener(OnRecycleViewListener mOnItemClickListener){
         this.onRecycleViewListener = mOnItemClickListener;
     }
 

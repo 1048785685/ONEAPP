@@ -32,12 +32,12 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
-     Fragment currentFragment = new Fragment();
+    Fragment currentFragment = new Fragment();
     private NavigationView navigationView;
-   FragmentOne FragmentOne =new FragmentOne();
-FragmentTwo FragmentTwo =new FragmentTwo();
- FragmentThree FragmentThree =new FragmentThree();
-FragmentFour FragmentFour =new FragmentFour();
+    FragmentOne FragmentOne =new FragmentOne();
+    FragmentTwo FragmentTwo =new FragmentTwo();
+    FragmentThree FragmentThree =new FragmentThree();
+    FragmentFour FragmentFour =new FragmentFour();
     FragmentManager fragmentManager;
 //    private Fragment FragmentWait = new FragmentWait();
 //    Fragment from=manager.findFragmentById(R.id.content_frame);
@@ -53,10 +53,7 @@ FragmentFour FragmentFour =new FragmentFour();
         currentFragment = FragmentOne;
         transaction.add(R.id.fragment, FragmentOne).show(FragmentOne).commit();
         Log.d("current",currentFragment+"");
-//        Log.d("current",FragmentOne+"");
-//        Log.d("current",FragmentTwo+"");
-//        Log.d("current",FragmentThree+"");
-//        Log.d("current",FragmentFour+"");
+
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -74,10 +71,12 @@ FragmentFour FragmentFour =new FragmentFour();
         aCache.put("image","http://cn.bing.com/az/hprichbg/rb/PalaudelaMusica_ZH-CN12110358984_1920x1080.jpg");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView textView = (TextView) findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-//          getSupportActionBar().setDisplayShowTitleEnabled(false);
+          getSupportActionBar().setDisplayShowTitleEnabled(false);
+            textView.setText("One&一个");
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.mipmap.geren);
         }

@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.soully.oneapp.R;
 import com.soully.oneapp.RecyclerViewData.RecyclerViewDataOne;
 import com.soully.oneapp.RecyclerViewData.RecyclerViewDataOneFirst;
-
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ import java.util.List;
  * Created by Soully on 2017/1/19.
  */
 
-public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ViewPagerFourAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<RecyclerViewDataOne> mDataOneList;
     private List<RecyclerViewDataOneFirst> mDataOneFirstList;
-    private OneAdapter.OnRecycleViewListener onRecycleViewListener;
+    private OnRecycleViewListener onRecycleViewListener;
     public static final int first_item = 0;//第一个item
     public static final int other_item = 1;//其余item
     public static final int last_item = 2;//最后一个item
@@ -30,7 +30,7 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     /*
   将数据源传进来
    */
-    public OneAdapter(List<RecyclerViewDataOne> dataOneList,List<RecyclerViewDataOneFirst> dataOneFirstList){
+    public ViewPagerFourAdapter(List<RecyclerViewDataOne> dataOneList, List<RecyclerViewDataOneFirst> dataOneFirstList){
         this.mDataOneList = dataOneList;
         this.mDataOneFirstList = dataOneFirstList;
     }
@@ -61,11 +61,13 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
            mContext = parent.getContext();
            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_content_one_first,parent,false);
            return new FirstItemViewHolder(view);
-       }else if (viewType == last_item){
-           mContext = parent.getContext();
-           View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_content_one_last,parent,false);
-           return new lastItemViewHolder(view);
-       }else {
+       }
+//       else if (viewType == last_item){
+//           mContext = parent.getContext();
+//           View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_content_one_last,parent,false);
+//           return new lastItemViewHolder(view);
+//       }
+       else {
            mContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_content_one,parent,false);
            return new ViewHolder(view);
@@ -88,9 +90,10 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             ((ViewHolder) holder).content.setText(mDataOneList.get(position).getContent());
             ((ViewHolder) holder).title.setText(mDataOneList.get(position).getTitle());
             ((ViewHolder) holder).biaoti.setText(mDataOneList.get(position).getBiaoti());
-        }else if (holder instanceof lastItemViewHolder){
-            ((lastItemViewHolder) holder).imageView.setImageResource(R.mipmap.chakan);
         }
+//        else if (holder instanceof lastItemViewHolder){
+//            ((lastItemViewHolder) holder).imageView.setImageResource(R.mipmap.chakan);
+//        }
     }
     public class FirstItemViewHolder extends RecyclerView.ViewHolder {
         TextView shouye_huihuazuozhe;
@@ -105,22 +108,22 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             shouye_huihuazuozhe = (TextView) itemView.findViewById(R.id.shouye_huihuazuozhe);
         }
     }
-    public class lastItemViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        public lastItemViewHolder(final View itemView) {
-            super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.recycler_one_last_image);
-            if(onRecycleViewListener != null){//如果设置了回调，则设置监听事件
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int pos = getItemCount();//和position值一样
-                        onRecycleViewListener.onItemClick(itemView,pos);
-                    }
-                });
-            }
-        }
-    }
+//    public class lastItemViewHolder extends RecyclerView.ViewHolder {
+//        ImageView imageView;
+//        public lastItemViewHolder(final View itemView) {
+//            super(itemView);
+//            imageView = (ImageView) itemView.findViewById(R.id.recycler_one_last_image);
+//            if(onRecycleViewListener != null){//如果设置了回调，则设置监听事件
+//                itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        int pos = getItemCount();//和position值一样
+//                        onRecycleViewListener.onItemClick(itemView,pos);
+//                    }
+//                });
+//            }
+//        }
+//    }
 
     /**
      *一共有多少子项
@@ -131,20 +134,19 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
     @Override
     public int getItemViewType(int position){
-        if (position+1 == getItemCount()){
-            return last_item;
-        }else if (position == 0){
+//        if (position+1 == getItemCount()){
+//            return last_item;
+//        }else
+        if (position == 0){
             return first_item;
         }else {
             return other_item;
         }
     }
-
-
     public interface OnRecycleViewListener{
         void onItemClick(View view, int position);
     }
-    public void setOnRecycleViewListener(OneAdapter.OnRecycleViewListener mOnItemClickListener){
+    public void setOnRecycleViewListener(OnRecycleViewListener mOnItemClickListener){
         this.onRecycleViewListener = mOnItemClickListener;
     }
 

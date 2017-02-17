@@ -35,6 +35,7 @@ public class FragmentFour extends Fragment implements SwipeRefreshLayout.OnRefre
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -123,4 +124,5 @@ public class FragmentFour extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         }, 500);
     }
+
 }

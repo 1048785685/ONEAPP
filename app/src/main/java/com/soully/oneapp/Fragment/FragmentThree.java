@@ -19,6 +19,7 @@ import com.soully.oneapp.RecyclerViewData.RecyclerViewDataTwo;
 import java.util.ArrayList;
 import java.util.List;
 import android.os.Handler;
+import android.widget.TextView;
 
 /**
  * Created by Soully on 2017/2/12.
@@ -30,10 +31,13 @@ public class FragmentThree extends Fragment implements SwipeRefreshLayout.OnRefr
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmentthree,container,false);
+
+
 
         for (int i=0;i<3;i++){
             RecyclerViewDataThree recyclerViewDataThree = new RecyclerViewDataThree();
@@ -116,4 +120,5 @@ public class FragmentThree extends Fragment implements SwipeRefreshLayout.OnRefr
             }
         }, 500);
     }
+
 }
