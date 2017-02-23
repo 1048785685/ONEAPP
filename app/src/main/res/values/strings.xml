@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ONE APP</string>
+    <string name="app_name">One&amp;一个</string>
     <string name="yingshi">影视</string>
     <string name="yinyue">音乐</string>
     <string name="yuedu">阅读</string>
@@ -7,4 +7,10 @@
     <string name="_yuedu_">-阅读-</string>
     <string name="_yinyue_">-音乐-</string>
     <string name="_yingshi_">-影视-</string>
+    <string name="wu">无</string>
+    <string name="yubao">预报</string>
+    <string name="riqi">日期</string>
+    <string name="tianqiqingkuang">天气</string>
+    <string name="maxqiwen">最高气温</string>
+    <string name="zuiqiqiwen">最低气温</string>
 </resources>

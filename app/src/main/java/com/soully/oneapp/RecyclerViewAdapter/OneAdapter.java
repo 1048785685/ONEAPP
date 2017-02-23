@@ -2,6 +2,7 @@ package com.soully.oneapp.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         TextView writer;
         TextView content;
         ImageView image;
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             /*
             itemView子项的最外层布局
              */
@@ -50,6 +51,16 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             writer = (TextView) itemView.findViewById(R.id.recycler_one_writer);
             content = (TextView) itemView.findViewById(R.id.recycler_one_content);
             image = (ImageView) itemView.findViewById(R.id.recycler_one_image);
+            if(onRecycleViewListener != null){//如果设置了回调，则设置监听事件
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int pos = getLayoutPosition();//和position值一样
+                        Log.d("XXXXXXXXXXXX",pos +"POS");
+                        onRecycleViewListener.onItemClick(itemView,pos);
+                    }
+                });
+            }
         }
     }
     /**
@@ -97,12 +108,21 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         TextView shouye_suibi;
         TextView shouye_suibizuozhe;
         ImageView shouye_image;
-        public FirstItemViewHolder(View itemView) {
+        public FirstItemViewHolder(final View itemView) {
             super(itemView);
             shouye_suibi = (TextView) itemView.findViewById(R.id.shouye_suibi);
             shouye_suibizuozhe = (TextView) itemView.findViewById(R.id.shouye_suibizuozhe);
             shouye_image = (ImageView) itemView.findViewById(R.id.shouye_image);
             shouye_huihuazuozhe = (TextView) itemView.findViewById(R.id.shouye_huihuazuozhe);
+            if(onRecycleViewListener != null){//如果设置了回调，则设置监听事件
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int pos = getLayoutPosition();//和position值一样
+                        onRecycleViewListener.onItemClick(itemView,pos);
+                    }
+                });
+            }
         }
     }
     public class lastItemViewHolder extends RecyclerView.ViewHolder {
@@ -114,7 +134,7 @@ public class OneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int pos = getItemCount();//和position值一样
+                        int pos = getLayoutPosition();//和position值一样
                         onRecycleViewListener.onItemClick(itemView,pos);
                     }
                 });

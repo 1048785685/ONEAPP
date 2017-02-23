@@ -1,5 +1,6 @@
 package com.soully.oneapp.ViewPagerFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,19 @@ import com.soully.oneapp.RecyclerViewAdapter.ViewPagerThreeAdapter;
 import com.soully.oneapp.RecyclerViewAdapter.ViewPagerTwoAdapter;
 import com.soully.oneapp.RecyclerViewData.RecyclerViewDataOne;
 import com.soully.oneapp.RecyclerViewData.RecyclerViewDataOneFirst;
+import com.soully.oneapp.YeMian.YemianFive;
+
+
+import com.soully.oneapp.YeMian.YemianFour;
+
+import com.soully.oneapp.YeMian.YemianOne;
+
+import com.soully.oneapp.YeMian.YemianSix;
+
+import com.soully.oneapp.YeMian.YemianThree;
+
+import com.soully.oneapp.YeMian.YemianTwo;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,6 +94,7 @@ public class ViewPagerFragmentThree extends Fragment implements SwipeRefreshLayo
     String[] shouyequestioncontent =new String[10];
     String[] shouyequestionname =new String[10];
     String[] shouyequestionimage =new String[10];
+    int k =3;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -119,9 +134,49 @@ public class ViewPagerFragmentThree extends Fragment implements SwipeRefreshLayo
             @Override
             public void onItemClick(View view, int position) {
                 Log.d("XXXX",position+"");
-                Log.d("XXXX",linearLayoutManager.findLastVisibleItemPosition()+"");
-                if (position-1 == linearLayoutManager.findLastVisibleItemPosition()){
+                if (position == 7){
                     viewPager.setCurrentItem(3);
+                }else if(position == 0){
+//                    viewPager.setCurrentItem(1);
+                }else if (position ==1){
+                    Intent intent = new Intent(view.getContext(), YemianOne.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idone"+k, Integer.parseInt(shouyeessayID[4]));
+                    Log.d("XXXX",shouyeessayID[4]);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else if (position==2){
+                    Intent intent = new Intent(view.getContext(), YemianTwo.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idtwo"+k, Integer.parseInt(shouyeessayID[5]));
+                    Log.d("XXXX",shouyeessayID[1]);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else if (position==3){
+                    Intent intent = new Intent(view.getContext(), YemianThree.class);
+                    Bundle bundle = new Bundle();
+                    Log.d("XXXX",shouyeserialId[0]);
+                    bundle.putInt("idthree"+k, Integer.parseInt(shouyeserialId[4]));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else if (position==4){
+                    Intent intent = new Intent(view.getContext(), YemianFour.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idfour"+k, Integer.parseInt(shouyeserialId[5]));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else if (position==5){
+                    Intent intent = new Intent(view.getContext(), YemianFive.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idfive"+k, Integer.parseInt(shouyequestionid[4]));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else if (position==6){
+                    Intent intent = new Intent(view.getContext(), YemianSix.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idsix"+k, Integer.parseInt(shouyequestionid[5]));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             }
         });
@@ -211,7 +266,7 @@ public class ViewPagerFragmentThree extends Fragment implements SwipeRefreshLayo
         }
     }
     public void addViewdate(){
-        for (int i=0;i<6;i++){
+        for (int i=0;i<8;i++){
             RecyclerViewDataOne recyclerViewDataOne = new RecyclerViewDataOne();
             Log.d("i为多少",i+"");
             if (i == 0) {
@@ -269,7 +324,7 @@ public class ViewPagerFragmentThree extends Fragment implements SwipeRefreshLayo
                 }
             }if (i==5){
                 Log.d("i为多少",56+"");
-                recyclerViewDataOne.setBiaoti("-连载-");
+                recyclerViewDataOne.setBiaoti("-问答-");
                 recyclerViewDataOne.setContent(shouyequestioncontent[i-1]);
                 recyclerViewDataOne.setTitle(shouyequestiontitle[i-1]);
                 recyclerViewDataOne.setWriter(shouyequestionname[i-1]);
@@ -281,7 +336,7 @@ public class ViewPagerFragmentThree extends Fragment implements SwipeRefreshLayo
                 }
             }if (i==6){
                 Log.d("i为多少",56+"");
-                recyclerViewDataOne.setBiaoti("-连载-");
+                recyclerViewDataOne.setBiaoti("-问答-");
                 recyclerViewDataOne.setContent(shouyequestioncontent[i-1]);
                 recyclerViewDataOne.setTitle(shouyequestiontitle[i-1]);
                 recyclerViewDataOne.setWriter(shouyequestionname[i-1]);

@@ -1,33 +1,56 @@
 package com.soully.oneapp;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
-import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.google.gson.Gson;
 import com.soully.oneapp.Gson.shouye.Shouyetuwen;
 import com.soully.oneapp.Gson.shouye.ShouyetuwenId;
 import com.soully.oneapp.Gson.shouye.yuedi.Shouyeyuedu;
 import com.soully.oneapp.HttpUtil.HttpUtil;
-import com.soully.oneapp.ViewPagerFragment.ViewPagerFragmentOne;
-import com.soully.oneapp.db.Shouyedb.Tuwen.Tuwendb;
+
+import com.soully.oneapp.db.NameDataBaseHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.IOException;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Response;
+
+
 
 /**
  * Created by Soully on 2017/2/16.
@@ -68,35 +91,86 @@ public class FirstActivity extends AppCompatActivity{
 //    String[] hpTextAuthors = new String[10];
 //    int[] praisenum = new int[10];
 //    int[] sharenum = new int[10];
+    Pass pass = new Pass();
+    Sign_in sign_in = new Sign_in();
+    private boolean network = false;
+    private ProgressDialog progressDialog;
+    public LocationClient mLocationClient;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mLocationClient = new LocationClient(getApplicationContext());
+        mLocationClient.registerLocationListener(new MyLocationListener());
+
+        List<String> permissionList = new ArrayList<>();
+        if(ContextCompat.checkSelfPermission(FirstActivity.this, Manifest.
+                permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if(ContextCompat.checkSelfPermission(FirstActivity.this, Manifest.
+                permission.READ_PHONE_STATE)!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if(ContextCompat.checkSelfPermission(FirstActivity.this, Manifest.
+                permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!permissionList.isEmpty()){
+            String[] permissions = permissionList.toArray(new String[permissionList.size()]);
+            ActivityCompat.requestPermissions(FirstActivity.this,permissions,1);
+        }else {
+            requestLocation();
+        }
         setContentView(R.layout.first);
         aCache = ACache.get(FirstActivity.this);
 
+//        NameDataBaseHelper nameDataBaseHelper = new NameDataBaseHelper(this,"PassTwo.db",null,1);
+//        nameDataBaseHelper.getReadableDatabase();
+//        pass.getName(nameDataBaseHelper);
+//        sign_in.getName(nameDataBaseHelper);
+
+        network = isNetworkAvailable(this);
+        if (!network){
+            showProgressDialog();
+        }
         Timer timer = new Timer();
         TimerTask tast = new TimerTask() {
             @Override
             public void run() {
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Toast.makeText(FirstActivity.this,"网络连接不稳定，请连接后重试",Toast.LENGTH_SHORT).show();
+//                    }
+//                }).start();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(FirstActivity.this,"网络连接不稳定，请连接后重试",Toast.LENGTH_SHORT).show();
+                    }
+                });
+//                Toast.makeText(getBaseContext(),"网络连接不稳定，请连接后重试",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(FirstActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         };
-        timer.schedule(tast, 5000);
+        timer.schedule(tast, 3000);
         HttpUtil.sendOkHttpRequest("http://v3.wufazhuce.com:8000/api/hp/idlist/0", new okhttp3.Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
 
+//                Toast.makeText(getBaseContext(),"网络连接不稳定，请连接后重试",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseData = response.body().string();
-                Log.d("XXXX",responseData);
+//                Log.d("XXXX",responseData);
                 Gson gson = new Gson();
                 ShouyetuwenId shouyetuwenId = gson.fromJson(responseData,ShouyetuwenId.class);
-                Log.d("首页图文ID",shouyetuwenId.getData().get(0));
+//                Log.d("首页图文ID",shouyetuwenId.getData().get(0));
                 for (int i=0;i<shouyetuwenId.getData().size();i++){
                     shouyeID[i] = shouyetuwenId.getData().get(i);
                 }
@@ -113,6 +187,7 @@ public class FirstActivity extends AppCompatActivity{
         HttpUtil.sendOkHttpRequest("http://v3.wufazhuce.com:8000/api/reading/index", new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Toast.makeText(FirstActivity.this,"网络连接不稳定，请连接后重试",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -134,7 +209,7 @@ public class FirstActivity extends AppCompatActivity{
                 }
                 for ( int i = 0;i<shouyeyuedu.getData().getSerial().size();i++){
 
-                    jsonArrayshouyeserialId.put(shouyeyuedu.getData().getSerial().get(i).getSerialId());
+                    jsonArrayshouyeserialId.put(shouyeyuedu.getData().getSerial().get(i).getId());
                     jsonArrayshouyeserialtitle.put(shouyeyuedu.getData().getSerial().get(i).getTitle());
                     jsonArrayshouyeserialword.put(shouyeyuedu.getData().getSerial().get(i).getExcerpt());
 //                    jsonArrayshouyeserialreadnum.put(shouyeyuedu.getData().getSerial().get(i).getReadNum());
@@ -145,8 +220,8 @@ public class FirstActivity extends AppCompatActivity{
                 }
                 for (int i=0;i<shouyeyuedu.getData().getQuestion().size();i++){
 
-                    jsonArrayshouyequestionid.put(shouyeyuedu.getData().getQuestion().get(i)
-                            .getQuestionId());
+                    jsonArrayshouyequestionid.put(shouyeyuedu.getData().getQuestion()
+                            .get(i).getQuestionId());
                     jsonArrayshouyequestiontitle.put(shouyeyuedu.getData().getQuestion().get(i)
                             .getQuestionTitle());
                     jsonArrayshouyequestioncontent.put(shouyeyuedu.getData().getQuestion().get(i)
@@ -193,6 +268,7 @@ public class FirstActivity extends AppCompatActivity{
             HttpUtil.sendOkHttpRequest("http://v3.wufazhuce.com:8000/api/hp/detail/"+shouyeID[i], new okhttp3.Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    Toast.makeText(FirstActivity.this,"网络连接不稳定，请连接后重试",Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
 
@@ -230,6 +306,104 @@ public class FirstActivity extends AppCompatActivity{
                     }
                 }
             });
+        }
+    }
+    /*
+检测网络是否可用
+ */
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivity = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getActiveNetworkInfo();
+            if (info != null && info.isConnected())
+            {
+                // 当前网络是连接的
+                if (info.getState() == NetworkInfo.State.CONNECTED)
+                {
+                    // 当前所连接的网络可用
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("网络连接出错，请链接网络重试。");
+            progressDialog.setCanceledOnTouchOutside(true);
+        }
+        progressDialog.show();
+    }
+    private void requestLocation(){
+        initLocation();
+        mLocationClient.start();
+    }
+private void initLocation(){
+    LocationClientOption option = new LocationClientOption();
+    option.setIsNeedAddress(true);
+    mLocationClient.setLocOption(option);
+}
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocationClient.stop();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+
+                if (grantResults.length>0){
+                    for (int result : grantResults){
+                        if (result != PackageManager.PERMISSION_GRANTED){
+                            Toast.makeText(this,"必须同意所有权限才能使用本程序",Toast.LENGTH_SHORT).show();
+                            finish();
+                            return;
+                        }
+                    }
+                    requestLocation();
+                }else {
+                    Toast.makeText(this,"发生未知错误",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+            default:
+        }
+    }
+
+    public class MyLocationListener implements BDLocationListener{
+
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            final StringBuilder currentPosition = new StringBuilder();
+            currentPosition.append("纬度:").append(bdLocation.getLatitude()).append("\n");
+            currentPosition.append("经线:").append(bdLocation.getLongitude()).append("\n");
+            currentPosition.append("定位方式:");
+            if (bdLocation.getLocType() == BDLocation.TypeGpsLocation){
+                currentPosition.append("GPS");
+            }else if (bdLocation.getLocType() == BDLocation.TypeNetWorkLocation){
+                currentPosition.append("网络");
+            }
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    positionText.setText(currentPosition);
+//                }
+//            });
+            Toast.makeText(FirstActivity.this,"当前位于"+bdLocation
+                    .getCity(),Toast.LENGTH_LONG).show();
+            aCache.put("currentcity",String.valueOf(bdLocation
+                    .getCity()));
+            //positionText.setText(String.valueOf(currentPosition));
+        }
+
+        @Override
+        public void onConnectHotSpotMessage(String s, int i) {
+
         }
     }
 }

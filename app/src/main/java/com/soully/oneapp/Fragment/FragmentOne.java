@@ -72,6 +72,7 @@ public class FragmentOne extends Fragment{
         viewPagerAdapter.addFragment(myFragmentThree,"TabThree");
         viewPagerAdapter.addFragment(myFragmentFour,"TabFour");
         myViewPager.setAdapter(viewPagerAdapter);
+        myViewPager.setOffscreenPageLimit(3);
         myFragmentOne.getViewpager(myViewPager);
         myFragmentTwo.getViewpager(myViewPager);
         myFragmentThree.getViewpager(myViewPager);
