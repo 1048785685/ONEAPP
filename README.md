@@ -1,24 +1,24 @@
 # 仿ONE客户端的制作
 ## 运行截图
 进入APP的第一个页面，通过百度定位获取当前的城市，并Toast提示
-<br/>![](/First_Term/Liuyang/p.jpg)
+<br/>![](/resource/shouye.png)
 进入之后的主页面
-<br/>![](/First_Term/Liuyang/p.jpg)
+<br/>![](/resource/zhuyemian.png)
 第一个页面是Viewpager，这是侧滑之后的页面
-<br/>![](/First_Term/Liuyang/p.jpg)
+<br/>![](/resource/lianzai.png)
 最后一个item是跳转到viewpager下一个fragment的按钮
-<br/>![](/First_Term/Liuyang/p.jpg)
+<br/>![](/resource/lastitem.png)
 下面是点击搜索之后的界面
-<br/>![](/First_Term/Liuyang/p.jpg)
-这是侧滑的页面（PS:没有实现夜间模式）
-<br/>![](/First_Term/Liuyang/p.jpg)
+<br/>![](/resource/sousuo.png)
+这是侧滑的页面（PS:没有实现夜间模式,没有实现登录功能）
+<br/>![](/resource/cehua.png)
 这是第一次点击，阅读，音乐，影视的网络加载的跳转页面
-<br/>![](/First_Term/Liuyang/p.jpg)
+<br/>![](/resource/yuedu.png)
 这是根据定位来获取本地的天气预报的页面
-<br/>![](/First_Term/Liuyang/p.jpg)
+<br/>![](/resource/tianqi.png)
 这两个是点击进去的页面
-<br/>![](/First_Term/Liuyang/p.jpg)
-<br/>![](/First_Term/Liuyang/p.jpg)
+<br/>![](/resource/wangyeone.png)
+<br/>![](/resource/wangyetwo.png)
 
 
 
